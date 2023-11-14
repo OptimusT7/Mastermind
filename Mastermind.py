@@ -53,21 +53,21 @@ colours = []
 
 game_mode = input(
     "\nWhich game mode would you like to play: Player vs Player (1) or Player vs Bot (2): "
-)
+).strip()
 while game_mode not in ("1", "2"):
     game_mode = input(
         "Please enter either 1 or 2 (according to the game mode you wish to play)\n\nWhich game mode would you like to play: Player vs Player (1) or Player vs Bot (2): "
-    )
+    ).strip()
 
 pegs_num = input(
     "\nHow many pegs did you want to be selected? There will be 2 more possible colours. "
     "(Standard: 4, Min: 2, Max: 10): "
-)
+).strip()
 while not pegs_num.isdigit() or int(pegs_num) not in range(2, 11):
     pegs_num = input(
         "Please enter a whole number between 2 and 10 (inclusive of)\n\n"
         "How many pegs did you want to be selected? (Standard: 4, Min: 2, Max: 10): "
-    )
+    ).strip()
 
 pegs_num = int(pegs_num)
 max_guesses = (int(pegs_num) * 3) - 2
@@ -100,7 +100,7 @@ if game_mode == "1":
         while not successful:
             solution_pegs = input(
                 f"Player {peg_guesser}, look away\nOk, Player {peg_chooser} - Choose the pegs (screen will be cleared after pegs are successfully chosen)\n> "
-            )
+            ).strip().upper()
             successful = True
             if solution_pegs == "" or len(solution_pegs) != pegs_num:
                 successful = False
@@ -196,7 +196,7 @@ if game_mode == "1":
         print(f"\nPlayer 1 Wins: {player1_wins}\nPlayer 2 Wins: {player2_wins}\n")
         play_again = input("Play Again? (Y or N)\n> ").lower().strip()
         while play_again not in ("y", "n"):
-            play_again = input("Please enter Y or N\n\nPlay Again? (Y or N)\n> ")
+            play_again = input("Please enter Y or N\n\nPlay Again? (Y or N)\n> ").lower().strip()
         if play_again == "y":
             peg_guesser = -peg_guesser + 3
             peg_chooser = -peg_chooser + 322
@@ -286,6 +286,6 @@ else:
         print(f"\nPlayer Wins: {player_wins}\nBot Wins: {bot_wins}\n")
         play_again = input("Play Again? (Y or N)\n> ").lower().strip()
         while play_again not in ("y", "n"):
-            play_again = input("Please enter Y or N\n\nPlay Again? (Y or N)\n> ")
+            play_again = input("Please enter Y or N\n\nPlay Again? (Y or N)\n> ").lower().strip()
 
 input("Please enter to close")
