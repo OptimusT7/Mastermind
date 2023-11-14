@@ -3,14 +3,14 @@ import os
 
 TORANGE = "\033[1;30;33m"
 TYELLOW = "\033[1;33m"
-TGREEN = '\33[1;92m'
+TGREEN = "\33[1;92m"
 TNOEFFECT = "\033[0m"
-TBLACK = '\33[30m'
-TWHITE = '\33[97m'
-TBLACKBG = '\33[40m'
-TWHITEBG = '\33[107m'
+TBLACK = "\33[30m"
+TWHITE = "\33[97m"
+TBLACKBG = "\33[40m"
+TWHITEBG = "\33[107m"
 
-play_again = 'y'
+play_again = "y"
 guess = ""
 all_pegs = [
     "R",
@@ -53,10 +53,13 @@ pegs_list = []
 solution_pegs = []
 colours = []
 
-game_mode = input("\nWhich game mode would you like to play: Player vs Player (1) or Player vs Bot (2): ")
-while game_mode not in ('1', '2'):
+game_mode = input(
+    "\nWhich game mode would you like to play: Player vs Player (1) or Player vs Bot (2): "
+)
+while game_mode not in ("1", "2"):
     game_mode = input(
-        "Please enter either 1 or 2 (according to the game mode you wish to play)\n\nWhich game mode would you like to play: Player vs Player (1) or Player vs Bot (2): ")
+        "Please enter either 1 or 2 (according to the game mode you wish to play)\n\nWhich game mode would you like to play: Player vs Player (1) or Player vs Bot (2): "
+    )
 
 pegs_num = input(
     "\nHow many pegs did you want to be selected? There will be 2 more possible colours. "
@@ -78,12 +81,12 @@ for x in range(0, pegs_num + 2):
 pegs = "".join(pegs_list)
 colours = ", ".join(colours)
 
-if game_mode == '1':
+if game_mode == "1":
     player1_wins = 0
     player2_wins = 0
     peg_chooser = 1
 
-    while play_again == 'y':
+    while play_again == "y":
         peg_guesser = -peg_chooser + 3
         print(
             f"\nPlayer {peg_chooser} will select {pegs_num} coloured pegs from the following colours:\n{colours}\n"
@@ -98,7 +101,8 @@ if game_mode == '1':
         successful = False
         while not successful:
             solution_pegs = input(
-                f'Player {peg_guesser}, look away\nOk, Player {peg_chooser} - Choose the pegs (screen will be cleared after pegs are successfully chosen)\n> ')
+                f"Player {peg_guesser}, look away\nOk, Player {peg_chooser} - Choose the pegs (screen will be cleared after pegs are successfully chosen)\n> "
+            )
             successful = True
             if solution_pegs == "" or len(solution_pegs) != pegs_num:
                 successful = False
@@ -107,13 +111,20 @@ if game_mode == '1':
                     successful = False
             if not successful:
                 example = "".join(random.choices(pegs_list, k=int(pegs_num)))
-                print(TYELLOW + f"Please only use the characters '{pegs}' (Not Case Sensitive)\n" + TNOEFFECT +
-                      f"Example: {example} ({pegs_num} Pegs Needed)\n")
+                print(
+                    TYELLOW
+                    + f"Please only use the characters '{pegs}' (Not Case Sensitive)\n"
+                    + TNOEFFECT
+                    + f"Example: {example} ({pegs_num} Pegs Needed)\n"
+                )
 
         solution = "".join(solution_pegs)
-        os.system('cls||clear')
+        os.system("cls||clear")
 
-        print(f"\nOK, Player {peg_chooser} has chosen the pegs. {peg_guesser} - What's your guess?", end="")
+        print(
+            f"\nOK, Player {peg_chooser} has chosen the pegs. {peg_guesser} - What's your guess?",
+            end="",
+        )
 
         while guesses < max_guesses:
             guess_num += 1
@@ -132,8 +143,12 @@ if game_mode == '1':
                         successful = False
                 if not successful:
                     example = "".join(random.choices(pegs_list, k=int(pegs_num)))
-                    print(TYELLOW + f"Please only use the characters '{pegs}' (Not Case Sensitive)\n" + TNOEFFECT +
-                          f"Example guess: {example} ({pegs_num} Pegs Needed)")
+                    print(
+                        TYELLOW
+                        + f"Please only use the characters '{pegs}' (Not Case Sensitive)\n"
+                        + TNOEFFECT
+                        + f"Example guess: {example} ({pegs_num} Pegs Needed)"
+                    )
 
             guesses += 1
             results = [guess + " ="]
@@ -149,7 +164,7 @@ if game_mode == '1':
 
             for x in range(pegs_num):
                 if (temp_guess[x] in temp_solution) and (
-                        temp_guess[x] not in temp_solution[x]
+                    temp_guess[x] not in temp_solution[x]
                 ):
                     results.append(" " + TWHITEBG + "  " + TNOEFFECT)
                     solution_x = temp_solution.index(temp_guess[x])
@@ -163,7 +178,9 @@ if game_mode == '1':
                     print(TGREEN + "\nOutstanding! You got it first try!" + TNOEFFECT)
                 else:
                     print(
-                        TGREEN + f"\nWell done! You got it. It took you {guesses} guesses." + TNOEFFECT
+                        TGREEN
+                        + f"\nWell done! You got it. It took you {guesses} guesses."
+                        + TNOEFFECT
                     )
                 if peg_chooser == 1:
                     player2_wins += 1
@@ -180,16 +197,16 @@ if game_mode == '1':
 
         print(f"\nPlayer 1 Wins: {player1_wins}\nPlayer 2 Wins: {player2_wins}\n")
         play_again = input("Play Again? (Y or N)\n> ").lower().strip()
-        while play_again not in ('y', 'n'):
+        while play_again not in ("y", "n"):
             play_again = input("Please enter Y or N\n\nPlay Again? (Y or N)\n> ")
-        if play_again == 'y':
+        if play_again == "y":
             peg_guesser = -peg_guesser + 3
             peg_chooser = -peg_chooser + 322
 
 else:
     player_wins = 0
     bot_wins = 0
-    while play_again == 'y':
+    while play_again == "y":
         print(
             f"\nI will select {pegs_num} coloured pegs from the following colours:\n{colours}\n"
             f"\nBut you only have {max_guesses} guesses."
@@ -222,8 +239,12 @@ else:
                         successful = False
                 if not successful:
                     example = "".join(random.choices(pegs_list, k=int(pegs_num)))
-                    print(TYELLOW + f"Please only use the characters '{pegs}' (Not Case Sensitive)\n" + TNOEFFECT +
-                          f"Example guess: {example} ({pegs_num} Pegs Needed)")
+                    print(
+                        TYELLOW
+                        + f"Please only use the characters '{pegs}' (Not Case Sensitive)\n"
+                        + TNOEFFECT
+                        + f"Example guess: {example} ({pegs_num} Pegs Needed)"
+                    )
 
             guesses += 1
             results = [guess + " ="]
@@ -239,7 +260,7 @@ else:
 
             for x in range(pegs_num):
                 if (temp_guess[x] in temp_solution) and (
-                        temp_guess[x] not in temp_solution[x]
+                    temp_guess[x] not in temp_solution[x]
                 ):
                     results.append(" " + TWHITEBG + "  " + TNOEFFECT)
                     solution_x = temp_solution.index(temp_guess[x])
@@ -253,7 +274,9 @@ else:
                     print(TGREEN + "\nOutstanding! You got it first try!" + TNOEFFECT)
                 else:
                     print(
-                        TGREEN + f"\nWell done! You got it. It took you {guesses} guesses." + TNOEFFECT
+                        TGREEN
+                        + f"\nWell done! You got it. It took you {guesses} guesses."
+                        + TNOEFFECT
                     )
                 player_wins += 1
                 break
@@ -264,7 +287,7 @@ else:
 
         print(f"\nPlayer Wins: {player_wins}\nBot Wins: {bot_wins}\n")
         play_again = input("Play Again? (Y or N)\n> ").lower().strip()
-        while play_again not in ('y', 'n'):
+        while play_again not in ("y", "n"):
             play_again = input("Please enter Y or N\n\nPlay Again? (Y or N)\n> ")
 
 input("Please enter to close")
