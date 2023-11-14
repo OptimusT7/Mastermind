@@ -55,8 +55,8 @@ colours = []
 
 game_mode = input("\nWhich game mode would you like to play: Player vs Player (1) or Player vs Bot (2): ")
 while game_mode not in ('1', '2'):
-    game_mode = input("Please enter either 1 or 2 (according to the game mode you wish to play)\n\nWhich game mode would you like to play: Player vs Player (1) or Player vs Bot (2): ")
-
+    game_mode = input(
+        "Please enter either 1 or 2 (according to the game mode you wish to play)\n\nWhich game mode would you like to play: Player vs Player (1) or Player vs Bot (2): ")
 
 pegs_num = input(
     "\nHow many pegs did you want to be selected? There will be 2 more possible colours. "
@@ -82,7 +82,7 @@ if game_mode == '1':
     player1_wins = 0
     player2_wins = 0
     peg_chooser = 1
-    
+
     while play_again == 'y':
         peg_guesser = -peg_chooser + 3
         print(
@@ -97,7 +97,8 @@ if game_mode == '1':
 
         successful = False
         while not successful:
-            solution_pegs = input(f'Player {peg_guesser}, look away\nOk, Player {peg_chooser} - Choose the pegs (screen will be cleared after pegs are successfully chosen)\n> ')
+            solution_pegs = input(
+                f'Player {peg_guesser}, look away\nOk, Player {peg_chooser} - Choose the pegs (screen will be cleared after pegs are successfully chosen)\n> ')
             successful = True
             if solution_pegs == "" or len(solution_pegs) != pegs_num:
                 successful = False
@@ -113,7 +114,7 @@ if game_mode == '1':
         os.system('cls||clear')
 
         print(f"\nOK, Player {peg_chooser} has chosen the pegs. {peg_guesser} - What's your guess?", end="")
-        
+
         while guesses < max_guesses:
             guess_num += 1
 
@@ -176,7 +177,7 @@ if game_mode == '1':
                     player1_wins += 1
                 else:
                     player2_wins += 1
-        
+
         print(f"\nPlayer 1 Wins: {player1_wins}\nPlayer 2 Wins: {player2_wins}\n")
         play_again = input("Play Again? (Y or N)\n> ").lower().strip()
         while play_again not in ('y', 'n'):
@@ -203,7 +204,7 @@ else:
         solution = "".join(solution_pegs)
 
         print("\nOK, I've chosen my colours. What's your guess?", end="")
-        
+
         while guesses < max_guesses:
             guess_num += 1
 
