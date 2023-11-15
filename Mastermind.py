@@ -86,12 +86,16 @@ pegs = "".join(pegs_list)
 colours = ", ".join(colours)
 
 if game_mode == "1":
-    player1_name = input("Player 1 - select your name: ").strip()
+    player1_name = input("\nPlayer 1 - select your name: ").strip()
     while not player1_name.isalpha():
-        player1_name = input("Please enter your name\n\nPlayer 1 - select your name: ").strip()
+        player1_name = input(
+            "Please enter your name\n\nPlayer 1 - select your name: "
+        ).strip()
     player2_name = input("Player 2 - select your name: ").strip()
     while not player2_name.isalpha():
-        player2_name = input("Please enter your name\n\nPlayer 1 - select your name: ").strip()
+        player2_name = input(
+            "Please enter your name\n\nPlayer 1 - select your name: "
+        ).strip()
 
     peg_chooser_num = random.randint(1, 2)
 
@@ -106,7 +110,9 @@ if game_mode == "1":
             peg_guesser = player1_name
         if first_run:
             first_run = False
-            print(f"\n{peg_chooser} will start as the peg selector, and {peg_guesser} will start as the guesser.")
+            print(
+                f"\n{peg_chooser} will start as the peg selector, and {peg_guesser} will start as the guesser."
+            )
         print(
             f"\n{peg_chooser} will select {pegs_num} coloured pegs from the following colours:\n{colours}\n"
             f"\nBut {peg_guesser} will only have {max_guesses} guesses."
@@ -119,9 +125,13 @@ if game_mode == "1":
 
         successful = False
         while not successful:
-            solution_pegs = input(
-                f"{peg_guesser}, look away.\nOk, {peg_chooser} - Choose the pegs (screen will be cleared after pegs are successfully chosen)\n> "
-            ).strip().upper()
+            solution_pegs = (
+                input(
+                    f"{peg_guesser}, look away.\nOk, {peg_chooser} - Choose the pegs (screen will be cleared after pegs are successfully chosen)\n> "
+                )
+                .strip()
+                .upper()
+            )
             successful = True
             if solution_pegs == "" or len(solution_pegs) != pegs_num:
                 successful = False
@@ -214,10 +224,14 @@ if game_mode == "1":
                 else:
                     player2_wins += 1
 
-        print(f"\n{player1_name} Wins: {player1_wins}\n{player2_name} Wins: {player2_wins}\n")
+        print(
+            f"\n{player1_name} Wins: {player1_wins}\n{player2_name} Wins: {player2_wins}\n"
+        )
         play_again = input("Play Again? (Y or N)\n> ").lower().strip()
         while play_again not in ("y", "n"):
-            play_again = input("Please enter Y or N\n\nPlay Again? (Y or N)\n> ").lower().strip()
+            play_again = (
+                input("Please enter Y or N\n\nPlay Again? (Y or N)\n> ").lower().strip()
+            )
 
         peg_chooser_num = -peg_chooser_num + 3
 
@@ -304,7 +318,9 @@ else:
         print(f"\nPlayer Wins: {player_wins}\nBot Wins: {bot_wins}\n")
         play_again = input("Play Again? (Y or N)\n> ").lower().strip()
         while play_again not in ("y", "n"):
-            play_again = input("Please enter Y or N\n\nPlay Again? (Y or N)\n> ").lower().strip()
+            play_again = (
+                input("Please enter Y or N\n\nPlay Again? (Y or N)\n> ").lower().strip()
+            )
 
 if game_mode == "1":
     if player1_wins == 1:
@@ -319,9 +335,13 @@ if game_mode == "1":
     if player1_wins == player2_wins:
         print(f"\nWell done! You drew, with {player1_wins} wins each!")
     elif player1_wins > player2_wins:
-        print(f"\nWell done! {player1_name} won, having {player1_wins} {p1_win_wins} compared to {player2_name}'s {player2_wins} {p2_win_wins}.")
+        print(
+            f"\nWell done! {player1_name} won, having {player1_wins} {p1_win_wins} compared to {player2_name}'s {player2_wins} {p2_win_wins}."
+        )
     else:
-        print(f"\nWell done! {player2_name} won, having {player2_wins} {p2_win_wins} compared to {player1_name}'s {player1_wins} {p1_win_wins}.")
+        print(
+            f"\nWell done! {player2_name} won, having {player2_wins} {p2_win_wins} compared to {player1_name}'s {player1_wins} {p1_win_wins}."
+        )
 else:
     if player_wins == 1:
         p_win_wins = "win"
@@ -333,10 +353,16 @@ else:
         bot_win_wins = "wins"
 
     if player_wins == bot_wins:
-        print(f"\nWell done! You drew with the bot, both getting {player_wins} {p_win_wins} each!")
+        print(
+            f"\nWell done! You drew with the bot, both getting {player_wins} {p_win_wins} each!"
+        )
     elif player_wins > bot_wins:
-        print(f"\nCongratulations! You won, having {player_wins} {p_win_wins} compared to bots {bot_wins} {bot_win_wins}.")
+        print(
+            f"\nCongratulations! You won, having {player_wins} {p_win_wins} compared to bots {bot_wins} {bot_win_wins}."
+        )
     else:
-        print(f"\nBetter luck next time! You lost, only winning {player_wins} games compared to the bots {bot_wins} {bot_win_wins}.")
+        print(
+            f"\nBetter luck next time! You lost, only winning {player_wins} games compared to the bots {bot_wins} {bot_win_wins}."
+        )
 
 input("\nPlease enter to close")
