@@ -50,6 +50,12 @@ print(TGREEN + "Welcome to MASTERMIND!" + TNOEFFECT)
 pegs_list = []
 solution_pegs = []
 colours = []
+player1_wins = 0
+player2_wins = 0
+player_wins = 0
+bot_wins = 0
+player1_name = ""
+player2_name = ""
 
 game_mode = input(
     "\nWhich game mode would you like to play: Player vs Player (1) or Player vs Bot (2): "
@@ -80,17 +86,32 @@ pegs = "".join(pegs_list)
 colours = ", ".join(colours)
 
 if game_mode == "1":
-    player1_wins = 0
-    player2_wins = 0
-    peg_chooser = 1
+    player1_name = input("Player 1 - select your name: ").strip()
+    while not player1_name.isalpha():
+        player1_name = input("Please enter your name\n\nPlayer 1 - select your name: ").strip()
+    player2_name = input("Player 2 - select your name: ").strip()
+    while not player2_name.isalpha():
+        player2_name = input("Please enter your name\n\nPlayer 1 - select your name: ").strip()
+
+    peg_chooser_num = random.randint(1, 2)
+
+    first_run = True
 
     while play_again == "y":
-        peg_guesser = -peg_chooser + 3
+        if peg_chooser_num == 1:
+            peg_chooser = player1_name
+            peg_guesser = player2_name
+        else:
+            peg_chooser = player2_name
+            peg_guesser = player1_name
+        if first_run:
+            first_run = False
+            print(f"\n{peg_chooser} will start as the peg selector, and {peg_guesser} will start as the guesser.")
         print(
-            f"\nPlayer {peg_chooser} will select {pegs_num} coloured pegs from the following colours:\n{colours}\n"
-            f"\nBut Player {peg_guesser} will only have {max_guesses} guesses."
-            f"\nIf Player {peg_guesser} can't guess the pegs in {max_guesses} guesses, then {peg_chooser} wins!\n\n"
-            "Ready? Then let's go..."
+            f"\n{peg_chooser} will select {pegs_num} coloured pegs from the following colours:\n{colours}\n"
+            f"\nBut {peg_guesser} will only have {max_guesses} guesses."
+            f"\nIf {peg_guesser} can't guess the pegs in {max_guesses} guesses, then {peg_chooser} wins!\n\n"
+            "Ready? Then let's go...\n"
         )
 
         guess_num = 0
@@ -99,7 +120,7 @@ if game_mode == "1":
         successful = False
         while not successful:
             solution_pegs = input(
-                f"Player {peg_guesser}, look away\nOk, Player {peg_chooser} - Choose the pegs (screen will be cleared after pegs are successfully chosen)\n> "
+                f"{peg_guesser}, look away.\nOk, {peg_chooser} - Choose the pegs (screen will be cleared after pegs are successfully chosen)\n> "
             ).strip().upper()
             successful = True
             if solution_pegs == "" or len(solution_pegs) != pegs_num:
@@ -120,7 +141,7 @@ if game_mode == "1":
         os.system("cls||clear")
 
         print(
-            f"\nOK, Player {peg_chooser} has chosen the pegs. {peg_guesser} - What's your guess?",
+            f"\nOK, {peg_chooser} has chosen the pegs. {peg_guesser} - What's your guess?",
             end="",
         )
 
@@ -180,7 +201,7 @@ if game_mode == "1":
                         + f"\nWell done! You got it. It took you {guesses} guesses."
                         + TNOEFFECT
                     )
-                if peg_chooser == 1:
+                if peg_chooser_num == 1:
                     player2_wins += 1
                 else:
                     player1_wins += 1
@@ -188,22 +209,19 @@ if game_mode == "1":
 
             if guesses == max_guesses and guess != solution:
                 print(TORANGE + f"You lost! The solution was {solution}" + TNOEFFECT)
-                if peg_chooser == 1:
+                if peg_chooser_num == 1:
                     player1_wins += 1
                 else:
                     player2_wins += 1
 
-        print(f"\nPlayer 1 Wins: {player1_wins}\nPlayer 2 Wins: {player2_wins}\n")
+        print(f"\n{player1_name} Wins: {player1_wins}\n{player2_name} Wins: {player2_wins}\n")
         play_again = input("Play Again? (Y or N)\n> ").lower().strip()
         while play_again not in ("y", "n"):
             play_again = input("Please enter Y or N\n\nPlay Again? (Y or N)\n> ").lower().strip()
-        if play_again == "y":
-            peg_guesser = -peg_guesser + 3
-            peg_chooser = -peg_chooser + 322
+
+        peg_chooser_num = -peg_chooser_num + 3
 
 else:
-    player_wins = 0
-    bot_wins = 0
     while play_again == "y":
         print(
             f"\nI will select {pegs_num} coloured pegs from the following colours:\n{colours}\n"
@@ -288,4 +306,37 @@ else:
         while play_again not in ("y", "n"):
             play_again = input("Please enter Y or N\n\nPlay Again? (Y or N)\n> ").lower().strip()
 
-input("Please enter to close")
+if game_mode == "1":
+    if player1_wins == 1:
+        p1_win_wins = "win"
+    else:
+        p1_win_wins = "wins"
+    if player2_wins == 1:
+        p2_win_wins = "win"
+    else:
+        p2_win_wins = "wins"
+
+    if player1_wins == player2_wins:
+        print(f"\nWell done! You drew, with {player1_wins} wins each!")
+    elif player1_wins > player2_wins:
+        print(f"\nWell done! {player1_name} won, having {player1_wins} {p1_win_wins} compared to {player2_name}'s {player2_wins} {p2_win_wins}.")
+    else:
+        print(f"\nWell done! {player2_name} won, having {player2_wins} {p2_win_wins} compared to {player1_name}'s {player1_wins} {p1_win_wins}.")
+else:
+    if player_wins == 1:
+        p_win_wins = "win"
+    else:
+        p_win_wins = "wins"
+    if bot_wins == 1:
+        bot_win_wins = "win"
+    else:
+        bot_win_wins = "wins"
+
+    if player_wins == bot_wins:
+        print(f"\nWell done! You drew with the bot, both getting {player_wins} {p_win_wins} each!")
+    elif player_wins > bot_wins:
+        print(f"\nCongratulations! You won, having {player_wins} {p_win_wins} compared to bots {bot_wins} {bot_win_wins}.")
+    else:
+        print(f"\nBetter luck next time! You lost, only winning {player_wins} games compared to the bots {bot_wins} {bot_win_wins}.")
+
+input("\nPlease enter to close")
